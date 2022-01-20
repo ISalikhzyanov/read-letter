@@ -42,7 +42,7 @@ class Read {
         this.name = name
         this.tag = tag
         this.link = link
-
+        this.read = false
     }
 }
 
@@ -63,11 +63,14 @@ addEl.addEventListener('click', () => {
 const renderList = () => {
     windowEl.innerHTML = ''
 
-    for (const item of list) {
-        const el = document.createElement('div')
-        const index = list.indexOf(item)
+    for (let index = 0; index < list.length - 1; ++index) {
+        const item = list[index];
 
-        for (const index of list){
+
+        const el = document.createElement('div')
+
+
+
             el.innerHTML = `
         <div>
         <input id="checkbox" type="checkbox">
@@ -75,15 +78,13 @@ const renderList = () => {
         <button type="button" class="btn btn-outline-danger" id="del">Удалить</button>
         
         </div>`
-        }
+
         windowEl.appendChild(el)
 
         const delEl = document.querySelector('#del')
 
         delEl.addEventListener('click', () => {
-
-
-            list.splice(list[index], 1)
+            list.splice(index, 1)
 
             renderList()
         })
@@ -91,10 +92,7 @@ const renderList = () => {
         const checkEl = el.querySelector('#checkbox')
 
         checkEl.addEventListener('change', () => {
-
-
-
-            list.splice(list[index], 1)
+            list.splice(index, 1)
 
             readList.push(list[index])
 
@@ -106,9 +104,10 @@ const renderList = () => {
 const renderReadList = () => {
     windowEl.innerHTML = ''
 
-    for (const item of readList) {
+    for (let index = 0; index < readList.length - 1; ++index) {
+        const item = readList[index];
         const el = document.createElement('div')
-        const readIndex = readList.indexOf(item)
+
 
 
         el.innerHTML = `
@@ -125,7 +124,7 @@ const renderReadList = () => {
         delEl.addEventListener('click', () => {
 
 
-            readList.splice(readList[readIndex], 1)
+            readList.splice(index, 1)
 
             renderReadList()
         })
@@ -135,9 +134,9 @@ const renderReadList = () => {
         checkEl.addEventListener('change', () => {
 
 
-            readList.splice(readList[readIndex], 1)
+            readList.splice(index, 1)
 
-            list.push(readList[readIndex])
+            list.push(readList[index])
 
             renderReadList()
         })
