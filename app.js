@@ -7,9 +7,9 @@ const linkEl = document.getElementById("link")
 const addEl = document.getElementById("add")
 const windowEl = document.getElementById("window")
 
-let list = []
+let list = [];
 
-let readList = []
+let readList = [];
 
 readEL.addEventListener('click', () => {
 
@@ -63,7 +63,7 @@ addEl.addEventListener('click', () => {
 const renderList = () => {
     windowEl.innerHTML = ''
 
-    for (let index = 0; index < list.length - 1; ++index) {
+    for (let index = 0; index <= list.length-1; ++index) {
         const item = list[index];
 
 
@@ -71,7 +71,7 @@ const renderList = () => {
 
 
 
-            el.innerHTML = `
+        el.innerHTML = `
         <div>
         <input id="checkbox" type="checkbox">
         <span class="badge bg-light text-dark">Название ${item.name}</span> <span class="badge bg-light text-dark">Тэг ${item.tag}</span> <span class="badge bg-light text-dark">Ссылка ${item.link}</span>
@@ -81,10 +81,11 @@ const renderList = () => {
 
         windowEl.appendChild(el)
 
-        const delEl = document.querySelector('#del')
+        const delEl = el.querySelector('#del')
 
         delEl.addEventListener('click', () => {
-            list.splice(index, 1)
+
+            list.splice(index,1)
 
             renderList()
         })
@@ -94,7 +95,7 @@ const renderList = () => {
         checkEl.addEventListener('change', () => {
             list.splice(index, 1)
 
-            readList.push(list[index])
+            readList.push(item)
 
             renderList()
         })
@@ -104,7 +105,7 @@ const renderList = () => {
 const renderReadList = () => {
     windowEl.innerHTML = ''
 
-    for (let index = 0; index < readList.length - 1; ++index) {
+    for (let index = 0; index <= readList.length-1; ++index) {
         const item = readList[index];
         const el = document.createElement('div')
 
@@ -119,7 +120,7 @@ const renderReadList = () => {
         </div>`
         windowEl.appendChild(el)
 
-        const delEl = document.getElementById('del')
+        const delEl = el.querySelector('#del')
 
         delEl.addEventListener('click', () => {
 
@@ -136,7 +137,7 @@ const renderReadList = () => {
 
             readList.splice(index, 1)
 
-            list.push(readList[index])
+            list.unshift(item)
 
             renderReadList()
         })
