@@ -30,8 +30,8 @@ readEL.addEventListener('click', () => {
     renderList()
 })
 
-readenEl.addEventListener('click', (r) => {
-    r.preventDefault()
+readenEl.addEventListener('click', () => {
+
     nameEl.style.display = 'none'
 
     tagEl.style.display = 'none'
@@ -46,8 +46,8 @@ readenEl.addEventListener('click', (r) => {
 
     renderReadList()
 })
-searchEl.addEventListener('click', (s) => {
-    s.preventDefault()
+searchEl.addEventListener('click', () => {
+
     nameEl.style.display = 'none'
 
     tagEl.style.display = 'none'
@@ -82,6 +82,21 @@ addEl.addEventListener('click', () => {
     list.push(item)
 
     renderList()
+})
+findBtnEl.addEventListener('click', (evt) => {
+    console.log(evt.currentTarget)
+    console.log(evt.target)
+    findList.push(list.find(item => item.name === findEl.value))
+
+    if (readList !== []){
+        findList.push(readList.find(item => item.name === findEl.value))
+    }
+    console.log(findList)
+renderFindList()
+
+
+
+
 })
 
 const renderList = () => {
@@ -171,6 +186,7 @@ const renderFindList = () => {
 
     for (let index = 0; index <= findList.length - 1; ++index) {
         const item = findList[index];
+
         const el = document.createElement('div')
 
 
@@ -182,21 +198,11 @@ const renderFindList = () => {
         
         </div>`
         windowEl.appendChild(el)
-        renderFindList()
 
 
 
-        findBtnEl.addEventListener('click', () => {
-          const mes = list.find(item => item.name === findEl.value)
-            // findList.push(list.filter(item => item.name === findEl.value))
-            //
-            findList.push(mes)
 
 
-
-            renderFindList()
-
-        })
 
     }
 }
