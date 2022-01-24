@@ -73,13 +73,21 @@ class Read {
 
 
 addEl.addEventListener('click', () => {
+
     const name = nameEl.value
     const tag = tagEl.value
     const link = linkEl.value
     const item = new Read(name, tag, link)
+    clearInputs(nameEl, tagEl, linkEl)
 
 
     list.push(item)
+
+
+
+
+
+
 
     renderList()
 })
@@ -178,7 +186,6 @@ const renderFindList = () => {
 
         el.innerHTML = `
         <div>
-        <input id="checkbox" type="checkbox" checked>
          <span class="badge bg-light text-dark">Название ${item.name}</span> <span class="badge bg-light text-dark">Тэг ${item.tag}</span> <span class="badge bg-light text-dark">Ссылка ${item.link}</span>
         <button type="button" class="btn btn-outline-danger" id="del">Удалить</button>
         
@@ -199,5 +206,12 @@ findBtnEl.addEventListener('click', (evt) => {
 
     console.log(findList)
     renderFindList()
+    clearInputs(findEl)
 
 })
+
+function clearInputs(...args) {
+    return args.forEach((arg) => {
+        arg.value = '';
+    })
+}
