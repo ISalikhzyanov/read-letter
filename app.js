@@ -83,21 +83,7 @@ addEl.addEventListener('click', () => {
 
     renderList()
 })
-findBtnEl.addEventListener('click', (evt) => {
-    console.log(evt.currentTarget)
-    console.log(evt.target)
-    findList.push(list.find(item => item.name === findEl.value))
 
-    if (readList !== []){
-        findList.push(readList.find(item => item.name === findEl.value))
-    }
-    console.log(findList)
-renderFindList()
-
-
-
-
-})
 
 const renderList = () => {
     windowEl.innerHTML = ''
@@ -200,9 +186,17 @@ const renderFindList = () => {
         windowEl.appendChild(el)
 
 
-
-
-
-
     }
 }
+findBtnEl.addEventListener('click', (evt) => {
+    console.log(evt.currentTarget)
+    console.log(evt.target)
+    findList.push(list.find(item => item.name === findEl.value))
+    // if (readList !== []) {
+    //     findList.push(readList.find(item => item.name === findEl.value))
+    // }
+
+    console.log(findList)
+    renderFindList()
+
+})
