@@ -1,15 +1,18 @@
-const readEL = document.getElementById("home")
-const readenEl = document.getElementById("profile")
-const searchEl = document.getElementById("contact")
-const nameEl = document.getElementById("name")
-const tagEl = document.getElementById("tag")
-const linkEl = document.getElementById("link")
-const addEl = document.getElementById("add")
-const windowEl = document.getElementById("window")
+const readEL = document.getElementById("home");
+const readenEl = document.getElementById("profile");
+const searchEl = document.getElementById("contact");
+const nameEl = document.getElementById("name");
+const tagEl = document.getElementById("tag");
+const linkEl = document.getElementById("link");
+const addEl = document.getElementById("add");
+const findEl = document.getElementById('find');
+const findBtnEl = document.getElementById('findBtn');
+const windowEl = document.getElementById("window");
 
 let list = [];
 
 let readList = [];
+let findList = [];
 
 readEL.addEventListener('click', () => {
 
@@ -19,22 +22,44 @@ readEL.addEventListener('click', () => {
 
     linkEl.style.display = 'inline'
 
-    addEl.style.display='inline'
+    addEl.style.display = 'inline'
 
+    findBtnEl.style.display = 'none'
+
+    findEl.style.display = 'none'
     renderList()
 })
 
-readenEl.addEventListener('click', () => {
-
+readenEl.addEventListener('click', (r) => {
+    r.preventDefault()
     nameEl.style.display = 'none'
 
     tagEl.style.display = 'none'
 
     linkEl.style.display = 'none'
 
-    addEl.style.display='none'
+    addEl.style.display = 'none'
+
+    findBtnEl.style.display = 'none'
+
+    findEl.style.display = 'none'
 
     renderReadList()
+})
+searchEl.addEventListener('click', (s) => {
+    s.preventDefault()
+    nameEl.style.display = 'none'
+
+    tagEl.style.display = 'none'
+
+    linkEl.style.display = 'none'
+
+    addEl.style.display = 'none'
+
+    findBtnEl.style.display = 'inline'
+
+    findEl.style.display = 'inline'
+    renderFindList()
 })
 
 class Read {
@@ -42,7 +67,7 @@ class Read {
         this.name = name
         this.tag = tag
         this.link = link
-        this.read = false
+
     }
 }
 
@@ -54,7 +79,6 @@ addEl.addEventListener('click', () => {
     const item = new Read(name, tag, link)
 
 
-
     list.push(item)
 
     renderList()
@@ -63,12 +87,11 @@ addEl.addEventListener('click', () => {
 const renderList = () => {
     windowEl.innerHTML = ''
 
-    for (let index = 0; index <= list.length-1; ++index) {
+    for (let index = 0; index <= list.length - 1; ++index) {
         const item = list[index];
 
 
         const el = document.createElement('div')
-
 
 
         el.innerHTML = `
@@ -85,7 +108,7 @@ const renderList = () => {
 
         delEl.addEventListener('click', () => {
 
-            list.splice(index,1)
+            list.splice(index, 1)
 
             renderList()
         })
@@ -105,10 +128,9 @@ const renderList = () => {
 const renderReadList = () => {
     windowEl.innerHTML = ''
 
-    for (let index = 0; index <= readList.length-1; ++index) {
+    for (let index = 0; index <= readList.length - 1; ++index) {
         const item = readList[index];
         const el = document.createElement('div')
-
 
 
         el.innerHTML = `
@@ -141,5 +163,40 @@ const renderReadList = () => {
 
             renderReadList()
         })
+    }
+}
+
+const renderFindList = () => {
+    windowEl.innerHTML = ''
+
+    for (let index = 0; index <= findList.length - 1; ++index) {
+        const item = findList[index];
+        const el = document.createElement('div')
+
+
+        el.innerHTML = `
+        <div>
+        <input id="checkbox" type="checkbox" checked>
+         <span class="badge bg-light text-dark">Название ${item.name}</span> <span class="badge bg-light text-dark">Тэг ${item.tag}</span> <span class="badge bg-light text-dark">Ссылка ${item.link}</span>
+        <button type="button" class="btn btn-outline-danger" id="del">Удалить</button>
+        
+        </div>`
+        windowEl.appendChild(el)
+        renderFindList()
+
+
+
+        findBtnEl.addEventListener('click', () => {
+          const mes = list.find(item => item.name === findEl.value)
+            // findList.push(list.filter(item => item.name === findEl.value))
+            //
+            findList.push(mes)
+
+
+
+            renderFindList()
+
+        })
+
     }
 }
