@@ -191,7 +191,8 @@ const renderFindList = () => {
 findBtnEl.addEventListener('click', (evt) => {
     console.log(evt.currentTarget)
     console.log(evt.target)
-    findList.push(list.find(item => item.name === findEl.value))
+    const arr = list.concat(readList)
+    findList.push(arr.find(item => item.name === findEl.value))
     // if (readList !== []) {
     //     findList.push(readList.find(item => item.name === findEl.value))
     // }
